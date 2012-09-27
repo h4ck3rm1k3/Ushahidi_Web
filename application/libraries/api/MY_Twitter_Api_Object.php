@@ -1,4 +1,5 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php 
+defined('SYSPATH') or die('No direct script access.');
 /**
  * This class handles GET request for KML via the API.
  *
