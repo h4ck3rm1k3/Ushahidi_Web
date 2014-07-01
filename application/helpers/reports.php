@@ -110,7 +110,8 @@ class reports_Core {
 		}
 		
 		// Validate photo uploads
-		$post->add_rules('incident_photo', 'upload::valid', 'upload::type[gif,jpg,png,jpeg]', 'upload::size[2M]');
+		$max_upload_size = Kohana::config('settings.max_upload_size');
+		$post->add_rules('incident_photo', 'upload::valid', 'upload::type[gif,jpg,png,jpeg]', "upload::size[".$max_upload_size."M]");
 
 
 		// Validate Personal Information
@@ -518,13 +519,13 @@ class reports_Core {
 						// Okay, now we have these three different files on the server, now check to see
 						//   if we should be dropping them on the CDN
 
+						$local_directory = rtrim($upload_dir, '/').'/';
 						if ($media_medium AND $media_thumb AND Kohana::config("cdn.cdn_store_dynamic_content"))
 						{
 							$cdn_media_medium = cdn::upload($media_medium);
 							$cdn_media_thumb = cdn::upload($media_thumb);
 
 							// We no longer need the files we created on the server. Remove them.
-							$local_directory = rtrim($upload_dir, '/').'/';
 
 							if (file_exists($local_directory.$media_medium))
 							{
