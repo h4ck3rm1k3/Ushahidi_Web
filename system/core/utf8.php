@@ -119,7 +119,8 @@ final class utf8 {
 			if ( ! self::is_ascii($str))
 			{
 				// Disable notices
-				$ER = error_reporting(~E_NOTICE);
+//				$ER = error_reporting(~E_NOTICE);
+				$ER = error_reporting(0);
 
 				// iconv is expensive, so it is only used when needed
 				$str = iconv('UTF-8', 'UTF-8//IGNORE', $str);
